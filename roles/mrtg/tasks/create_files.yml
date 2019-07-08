@@ -1,0 +1,9 @@
+---
+- name: "create files"
+  file: 
+    path: "{{ item }}"
+    state: touch
+    mode: 0775
+  loop:
+    - "{{ OS.mrtg.dirs.conf }}/{{ OS.mrtg.files.tarif }}"
+    - "{{ OS.mrtg.dirs.conf }}/{{ OS.mrtg.files.users }}"

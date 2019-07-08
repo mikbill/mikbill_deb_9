@@ -1,0 +1,8 @@
+---
+- name: "copy mbp config"
+  template:
+    src: "mbp.config"
+    dest: "{{ OS.mikbill.dirs.www }}/admin/app/etc/config.ini"
+    owner: root
+    group: root
+    mode: 0777

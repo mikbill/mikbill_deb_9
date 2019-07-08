@@ -1,0 +1,41 @@
+---
+- name: "add percona apt signing key"
+  apt_key: keyserver=keyserver.ubuntu.com id=8507EFA5 state=present
+
+- name: "add Percona repositories"
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+     - deb http://repo.percona.com/apt {{ ansible_distribution_release }} main
+     - deb-src http://repo.percona.com/apt {{ ansible_distribution_release }} main
+
+- name: "install python packages"
+  package:
+    name: python-mysqldb
+    state: present
+
+- name: "create dir"
+  file:
+    path: "{{ OS.database.percona.dirs.conf }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: "copy template"
+  template:
+    src: percona.cnf
+    dest: "{{ OS.database.percona.dirs.conf }}/my.cnf"  
+
+- name: "install percona packages"
+  apt:
+    name:
+       - percona-server-server-{{ OS.database.percona.version }}
+       - percona-server-client-{{ OS.database.percona.version }}
+    state: present
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+#  notify:
+#    - set root password

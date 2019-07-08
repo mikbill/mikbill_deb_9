@@ -1,0 +1,5 @@
+---
+- include_tasks: "install_{{ ansible_os_family | lower }}{{ ansible_distribution_major_version }}.yml"
+- include_tasks: create_dir.yml
+- include_tasks: create_files.yml
+- include_tasks: generate_config.yml

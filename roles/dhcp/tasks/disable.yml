@@ -1,0 +1,6 @@
+---
+- name: "disable {{ OS.dhcp.name }}"
+  service:
+    name: "{{ OS.dhcp.name }}"
+    enabled: no
+    state: stopped

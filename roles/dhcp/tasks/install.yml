@@ -1,0 +1,5 @@
+---
+- name: "install {{ OS.dhcp.name }}"
+  package:
+    name: "{{ OS.dhcp.package }}"
+    state: present

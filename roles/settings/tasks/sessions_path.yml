@@ -1,0 +1,12 @@
+---
+- name: "get session.save_path"
+  shell: php -i | grep session.save_path | awk '{ print $3 }'
+  register: save_path
+      
+- name: "fix sessions privileges"
+  file:
+    path: "{{ save_path.stdout }}"
+    owner: "{{ OS.fpm.config.pool.user }}"
+    group: "{{ OS.fpm.config.pool.group }}"
+    mode: 0755
+  when: '"session" in save_path.stdout'

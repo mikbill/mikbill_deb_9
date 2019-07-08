@@ -1,0 +1,9 @@
+---
+- name: install
+  package:
+    name:
+      - ntpdate
+      - wget
+      - sysstat
+      - net-tools
+    state: present

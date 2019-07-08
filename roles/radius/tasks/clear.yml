@@ -1,0 +1,11 @@
+---
+- name: "check {{ OS.radius.dirs.conf }} exists"
+  stat:
+    path: "{{ OS.radius.dirs.conf }}"
+  register: raddb
+    
+- name: "clear {{ OS.radius.dirs.conf }}"
+  file:
+    path: "{{ OS.radius.dirs.conf }}"
+    state: absent
+  when: raddb.stat.exists

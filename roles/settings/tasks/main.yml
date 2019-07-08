@@ -1,0 +1,5 @@
+---
+- include_tasks: php.ini.yml
+- include_tasks: sessions_path.yml
+- include_tasks: selinux.yml
+  when: ansible_os_family | lower == 'redhat'

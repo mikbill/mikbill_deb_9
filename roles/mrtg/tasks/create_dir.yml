@@ -1,0 +1,8 @@
+---
+- name: "create {{ OS.mrtg.dirs.conf }}"
+  file:
+    path: "{{ OS.mrtg.dirs.conf }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory

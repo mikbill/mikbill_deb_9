@@ -1,0 +1,15 @@
+<config>
+    <parameters>
+        <mysql>
+            <host>localhost</host>
+            <username>{username}</username>
+            <password>{password}</password>
+            <dbname>{database}</dbname>
+        </mysql>
+		<timezone>{timezone}</timezone>
+		<partialUTF8>false</partialUTF8>
+		<timezone>Europe/Kiev</timezone>
+        <siteName>MikBill Map</siteName>
+        <siteHost>https://</siteHost>
+    </parameters>
+</config>

@@ -1,0 +1,5 @@
+---
+- name: add to startup
+  service:
+    name: "{{ OS.database.percona.alias }}"
+    enabled: yes

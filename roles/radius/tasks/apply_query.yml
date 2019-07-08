@@ -1,0 +1,11 @@
+---
+- name: "update sysopt: restart command"
+  command: mysql --user=root {{ mikbill.database.proper.name }} --execute="UPDATE system_options SET `value`='systemctl restart {{ OS.radius.name }}' WHERE `key`='radiusd_path'"
+
+- name: "looking for radclient"
+  shell: which radclient
+  register: radclient
+  
+- name: "update sysopt: radclient"
+  command: mysql --user=root {{ mikbill.database.proper.name }} --execute="UPDATE system_options SET `value`='{{ radclient.stdout }}' WHERE `key`='exec_radclient'"
+  when: radclient.stdout != ""

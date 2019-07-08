@@ -1,0 +1,26 @@
+mikbill:
+  html5_defaul: 0
+  nginx:
+    domain: ispnet.demo
+  database:
+    users:
+      billing:
+        user: mikbill
+        password: ""
+      root:
+        password: ""
+    proper:
+      name: mikbill
+      encoding: koi8r
+      collation: koi8r_general_ci
+    type:
+      name: percona
+    restore_from_backup:
+      enabled: 0
+      file: "/tmp/backup.sql"
+  dirs:
+    home: /var/mikbill
+    tmp: /tmp/mikbill/install
+  requirements:
+    ram: 1864
+    cores: 2

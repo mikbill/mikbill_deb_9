@@ -1,0 +1,16 @@
+---
+- name: "import clear data"
+  mysql_db: 
+     name: "{{ mikbill.database.proper.name }}"
+     login_unix_socket: "{{ OS.database.percona.socket }}"
+     target: "{{ mikbill.dirs.tmp }}/clear_mikbill_database.sql"
+     state: import
+  when: mikbill.database.restore_from_backup.enabled == 0
+
+- name: "import custom file: {{ mikbill.database.restore_from_backup.file }}"
+  mysql_db: 
+     name: "{{ mikbill.database.proper.name }}"
+     login_unix_socket: "{{ OS.database.percona.socket }}"
+     target: "{{ mikbill.database.restore_from_backup.file }}"
+     state: import
+  when: mikbill.database.restore_from_backup.enabled == 1

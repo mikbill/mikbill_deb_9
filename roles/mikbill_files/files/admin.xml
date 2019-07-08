@@ -1,0 +1,21 @@
+<config>
+    <parameters>
+        <mysql>
+            <host>localhost</host>
+            <username>{username}</username>
+            <password>{password}</password>
+            <dbname>{database}</dbname>
+        </mysql>
+		<partialUTF8>false</partialUTF8>
+		<timezone>{timezone}</timezone>
+        <mbdebug>false</mbdebug>
+        <kernel>
+            <ip>127.0.0.1</ip>
+            <port>2007</port>
+            <pid>/var/run/mikbill.pid</pid>
+            <log>/var/log/mikbill.log</log>
+        </kernel>
+        <siteName>MikBill Starter</siteName>
+        <siteHost>https://</siteHost>
+    </parameters>
+</config>

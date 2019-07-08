@@ -1,0 +1,6 @@
+---
+- name: "copy clear dump"
+  copy:
+    src: mikbill_clear.sql
+    dest: "{{ mikbill.dirs.tmp }}/clear_mikbill_database.sql"
+  when: mikbill.database.restore_from_backup.enabled == 0

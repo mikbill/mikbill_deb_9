@@ -1,0 +1,5 @@
+---
+- name: "check package"
+  package:
+    name: logrotate
+    state: present

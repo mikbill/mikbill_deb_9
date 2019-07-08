@@ -1,0 +1,12 @@
+---
+- name: "update billing"
+  command: "/bin/bash {{ OS.mikbill.files.mikbill_update }}"
+  args:
+    chdir: "{{ OS.mikbill.dirs.www }}/{{ OS.mikbill.dirs.upd }}"
+  ignore_errors: yes
+
+- name: "update sql"
+  command: "/bin/bash {{ OS.mikbill.files.mb_sql_upd }}"
+  args:
+    chdir: "{{ OS.mikbill.dirs.www }}/{{ OS.mikbill.dirs.upd }}"
+  ignore_errors: yes

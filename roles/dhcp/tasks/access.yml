@@ -1,0 +1,14 @@
+---
+- name: "chown dhcp dir"
+  file: 
+    dest: "{{ OS.dhcp.dirs.conf }}"
+    owner: "{{ OS.fpm.config.pool.user }}"
+    group: "{{ OS.fpm.config.pool.group }}"
+    mode: 0755
+
+- name: "chown dhcp.conf"
+  file: 
+    dest: "{{ OS.dhcp.dirs.conf }}/{{ OS.dhcp.files.conf }}"
+    owner: "{{ OS.fpm.config.pool.user }}"
+    group: "{{ OS.fpm.config.pool.group }}"
+    mode: 0755

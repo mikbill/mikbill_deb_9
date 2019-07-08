@@ -1,0 +1,9 @@
+---
+- name: install
+  package:
+    name:
+       - freeradius
+       - freeradius-mysql
+       - freeradius-perl
+       - freeradius-utils
+    state: present

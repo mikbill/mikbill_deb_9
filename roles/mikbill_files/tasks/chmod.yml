@@ -1,0 +1,12 @@
+---
+- name: "chmod mikbill dirs"
+  file: 
+    dest: "{{ OS.mikbill.dirs.www }}/{{ item }}"
+    owner: "{{ OS.fpm.config.pool.user }}"
+    group: "{{ OS.fpm.config.pool.group }}"
+    mode: 0755
+    recurse: yes
+  with_items:
+    - admin
+    - stat
+    - blocked

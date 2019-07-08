@@ -1,0 +1,26 @@
+# mikbill start
+57 23 * * * root {{ OS.mikbill.dirs.www }}/admin/sys/scripts/mikbill_block.sh
+58 23 * * * root {{ OS.mikbill.dirs.www }}/admin/sys/scripts/mikbill_day.sh
+01 0 1 * * root {{ OS.mikbill.dirs.www }}/admin/sys/scripts/mikbill_mth.sh
+0-59/5 * * * * root {{ OS.mikbill.dirs.www }}/admin/sys/scripts/mikbill_5min.sh
+01 * * * * root {{ OS.mikbill.dirs.www }}/admin/sys/scripts/mikbill_hour.sh
+
+# Last day
+59 23 28,29 2 * root {{ OS.mikbill.dirs.www }}/admin/sys/scripts/mikbill_lastday.sh
+59 23 31 1,3,5,7,8,10,12 * root {{ OS.mikbill.dirs.www }}/admin/sys/scripts/mikbill_lastday.sh
+59 23 30 4,6,9,11 * root {{ OS.mikbill.dirs.www }}/admin/sys/scripts/mikbill_lastday.sh
+# mikbill end
+
+# sync time
+58 1 * * * root /usr/sbin/ntpdate -u pool.ntp.org > /dev/null 2>&1
+
+# mikbill update
+00 2 * * * root {{ OS.mikbill.dirs.scripts }}/cron_mikbill.sh > /dev/null
+
+# rad check
+*/1 * * * * root {{ mikbill.dirs.home }}/custom_scripts/radiusd_check.sh > /dev/null 2>&1
+
+# mysql
+00 06 * * * root {{ mikbill.dirs.home }}/custom_scripts/mysql_backup.sh
+
+

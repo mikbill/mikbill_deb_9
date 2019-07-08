@@ -1,0 +1,37 @@
+---
+#- name: "copy percona-release"
+#  copy:
+#    src: "percona-release-0.1-6.noarch.rpm"
+#    dest: "{{ mikbill.dirs.tmp }}/percona-release-0.1-6.noarch.rpm"
+- name: "install percona-release"
+  yum:
+     name: "https://repo.percona.com/yum/percona-release-latest.noarch.rpm"
+     state: present
+
+- name: "install mysql-python"
+  yum:
+    name: MySQL-python
+    state: present
+
+- name: "copy template"
+  template:
+    src: percona.cnf
+    dest: "{{ OS.database.percona.dirs.conf }}/my.cnf"  
+
+- name: "create log dir"
+  file:
+    path: "{{ OS.database.percona.dirs.logs }}" 
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: "install percona server"
+  yum:
+    name:
+      - Percona-Server-server-{{ OS.database.percona.version }}
+      - Percona-Server-client-{{ OS.database.percona.version }}
+      - Percona-Server-devel-{{ OS.database.percona.version }}
+    state: present
+#  notify:
+#    - set root password

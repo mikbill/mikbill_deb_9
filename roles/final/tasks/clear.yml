@@ -1,0 +1,13 @@
+---
+- name: "remove files"
+  file:
+    state: absent
+    path: "{{ mikbill.dirs.tmp }}"
+#  with_items:
+#    - "{{ hostvars[inventory_hostname].install.dir }}"
+#    - /tmp/db_root
+#    - /tmp/db_user
+#    - /tmp/www_user    
+  notify:
+    - restart nginx
+    - restart fpm

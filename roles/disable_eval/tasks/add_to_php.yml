@@ -1,0 +1,17 @@
+---
+- name: "add module to php"
+  template:
+    src: 10-disable_eval.ini
+    dest: "{{ OS.php.dirs.mods }}/10-disable_eval.ini"
+  ignore_errors: yes
+
+- name: "make symlink"
+  file:
+    src: "{{ OS.php.dirs.mods }}/10-disable_eval.ini"
+    dest: "{{ item }}"
+    state: link
+  with_items:
+    - "{{ OS.php.dirs.conf }}/cli/conf.d/10-disable_eval.ini"
+    - "{{ OS.fpm.dirs.conf }}/fpm/conf.d/10-disable_eval.ini"
+  when: ansible_os_family | lower == 'debian'
+  ignore_errors: yes

@@ -1,0 +1,12 @@
+---
+- name: "generate password for admin"
+  set_fact:
+     www_pass: "{{ lookup('password', '/tmp/www_user chars=ascii_letters length=12') }}"
+  when: mikbill.database.restore_from_backup.enabled == 0
+
+- name: "update password for admin"
+  command: mysql --user=root {{ mikbill.database.proper.name }} --execute="UPDATE stuff_personal SET pass=MD5('{{ www_pass }}') WHERE login='admin'"
+  when: mikbill.database.restore_from_backup.enabled == 0
+
+- name: "update sysopt: restart command"
+  command: mysql --user=root {{ mikbill.database.proper.name }} --execute="UPDATE system_options SET `value`='systemctl restart {{ OS.database.percona.name }}' WHERE `key`='mysqld_path'"

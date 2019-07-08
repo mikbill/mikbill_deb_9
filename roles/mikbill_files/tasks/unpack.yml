@@ -1,0 +1,23 @@
+---
+- name: "create {{ OS.mikbill.dirs.www }}"
+  file:
+    path: "{{ OS.mikbill.dirs.www }}"
+    owner: "{{ OS.fpm.config.pool.user }}"
+    group: "{{ OS.fpm.config.pool.group }}"
+    mode: 0755
+    state: directory
+
+- name: Extract admin.tar.gz
+  unarchive:
+    src: "{{ mikbill.dirs.tmp }}/admin.tar.gz"
+    dest: "{{ OS.mikbill.dirs.www }}"
+
+- name: Extract stat.tar.gz
+  unarchive:
+    src: "{{ mikbill.dirs.tmp }}/stat.tar.gz"
+    dest: "{{ OS.mikbill.dirs.www }}"
+
+- name: Extract blocked.tar.gz
+  unarchive:
+    src: "{{ mikbill.dirs.tmp }}/blocked.tar.gz"
+    dest: "{{ OS.mikbill.dirs.www }}"

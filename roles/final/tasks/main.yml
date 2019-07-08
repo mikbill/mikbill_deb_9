@@ -1,0 +1,9 @@
+---
+- include_tasks: startup.yml
+- include_tasks: firewalld.yml
+  when: ansible_os_family | lower == "redhat"
+
+- include_tasks: root_password.yml
+- include_tasks: info_save.yml
+- include_tasks: clear.yml
+- include_tasks: info_show.yml

@@ -1,0 +1,19 @@
+---
+- name: "generate password for: {{ mikbill.database.users.billing.user }}"
+  set_fact:
+     billing_pass: "{{ lookup('password', '/tmp/db_user chars=ascii_letters length=12') }}"
+  when: mikbill.database.users.billing.password == ''
+
+- name: "copy {{ mikbill.database.users.billing.user }} password from variable"
+  set_fact:
+     billing_pass: "{{ mikbill.database.users.billing.password }}"
+  when: mikbill.database.users.billing.password != ''
+
+- name: "create database user: {{ mikbill.database.users.billing.user }}"
+  mysql_user:
+    login_unix_socket: "{{ OS.database.percona.socket }}"
+    name: "{{ mikbill.database.users.billing.user }}"
+    password: "{{ billing_pass }}"
+    host: localhost
+    priv: '*.*:ALL,GRANT'
+    state: present

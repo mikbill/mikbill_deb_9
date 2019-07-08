@@ -1,0 +1,24 @@
+- name: "install modules"
+  yum:
+    name:
+       - php
+       - php-fpm
+       - php-bcmath
+       - php-cli
+       - php-common
+       - php-devel
+       - php-embedded
+       - php-gd
+       - php-imap
+       - php-mbstring
+       - php-mysql
+       - php-pdo
+       - php-process
+       - php-pspell
+       - php-recode
+       - php-snmp
+       - php-soap
+       - php-xml
+       - php-xmlrpc
+       - php-pear
+    state: present

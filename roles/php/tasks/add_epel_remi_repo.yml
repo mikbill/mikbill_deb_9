@@ -1,0 +1,28 @@
+---
+- name: "install yum-utils"
+  yum:
+     name: yum-utils
+     state: present
+
+- name: "copy epel-release"
+  copy:
+    src: "epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+    dest: "{{ mikbill.dirs.tmp }}/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+
+- name: "copy remi-release"
+  copy:
+    src: "remi-release-{{ ansible_distribution_major_version }}.rpm"
+    dest: "{{ mikbill.dirs.tmp }}/remi-release-{{ ansible_distribution_major_version }}.rpm"
+
+- name: "install epel-release"
+  yum:
+     name: "{{ mikbill.dirs.tmp }}/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+     state: present
+
+- name: "install remi-release"
+  yum:
+     name: "{{ mikbill.dirs.tmp }}/remi-release-{{ ansible_distribution_major_version }}.rpm"
+     state: present
+
+- name: "enable remi-php72"
+  command: yum-config-manager --enable remi-php72

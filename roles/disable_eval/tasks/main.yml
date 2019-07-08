@@ -1,0 +1,4 @@
+---
+- include_tasks: unpack.yml
+- include_tasks: complie.yml
+- include_tasks: add_to_php.yml

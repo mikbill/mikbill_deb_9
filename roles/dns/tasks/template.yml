@@ -1,0 +1,5 @@
+---
+- name: "copy template"
+  template:
+    src: "{{ OS.dns.files.conf }}"
+    dest: "{{ OS.dns.dirs.conf }}/{{ OS.dns.files.conf }}"

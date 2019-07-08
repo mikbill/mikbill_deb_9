@@ -1,0 +1,14 @@
+---
+- name: "run services"
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - "{{ OS.database.percona.name }}"
+    - "{{ OS.fpm.name }}"
+    - "{{ OS.nginx.name }}"
+    - "{{ OS.mikbill.name }}"
+    - "{{ OS.radius.name }}"
+    - "{{ OS.dns.name }}"
+  ignore_errors: yes

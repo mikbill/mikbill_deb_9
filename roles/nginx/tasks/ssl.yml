@@ -1,0 +1,11 @@
+---
+- name: "create {{ OS.nginx.dirs.ssl }}"
+  file:
+    path: "{{ OS.nginx.dirs.ssl }}"
+    state: directory
+
+- name: create self-signed certificates
+  command: >
+        openssl req -x509 -nodes -subj '/CN={{ ansible_hostname }}' -days 365
+        -newkey rsa:4096 -sha256 -keyout {{ OS.nginx.dirs.ssl }}/{{ OS.nginx.files.ssl_key }} -out {{ OS.nginx.dirs.ssl }}/{{ OS.nginx.files.ssl_cert }}
+        creates={{ OS.nginx.dirs.ssl }}/{{ OS.nginx.files.ssl_cert }}

@@ -1,0 +1,9 @@
+---
+- name: "copy python-httplib2 deb update file"
+  copy:
+    src: python-httplib2_0.11.3-1+0_20181104091007.2+stretch_1.gbp2efb8a_all.deb
+    dest: "{{ mikbill.dirs.tmp }}/python-httplib2_0.11.3-1+0_20181104091007.2+stretch_1.gbp2efb8a_all.deb"
+
+- name: "install python-httplib2 update"
+  apt:
+    deb: "{{ mikbill.dirs.tmp }}/python-httplib2_0.11.3-1+0_20181104091007.2+stretch_1.gbp2efb8a_all.deb"

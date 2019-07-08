@@ -1,0 +1,20 @@
+---
+- name: "configure php.ini CLI"
+  replace:
+     path: "{{ item.file }}"
+     regexp: "{{ item.before }}"
+     replace: "{{ item.after }}"
+  loop:
+    - { file: "{{ OS.php.dirs.conf }}/{{ OS.php.files.cli }}", before: "^register_argc_argv = Off", after: "register_argc_argv = On" }
+    - { file: "{{ OS.php.dirs.conf }}/{{ OS.php.files.cli }}", before: "^;date.timezone =", after: "date.timezone = {{ timezone.stdout }}" }
+    - { file: "{{ OS.php.dirs.conf }}/{{ OS.php.files.cli }}", before: "^memory_limit =", after: "memory_limit = -1 ;" }
+
+- name: "configure php.ini FPM"
+  replace:
+     path: "{{ item.file }}"
+     regexp: "{{ item.before }}"
+     replace: "{{ item.after }}"
+  loop:
+    - { file: "{{ OS.fpm.dirs.conf }}/{{ OS.fpm.files.ini }}", before: "^register_argc_argv = Off", after: "register_argc_argv = On"  }
+    - { file: "{{ OS.fpm.dirs.conf }}/{{ OS.fpm.files.ini }}", before: "^;date.timezone =", after: "date.timezone = {{ timezone.stdout }}" }
+    - { file: "{{ OS.fpm.dirs.conf }}/{{ OS.fpm.files.ini }}", before: "^memory_limit =", after: "memory_limit = -1 ;" }

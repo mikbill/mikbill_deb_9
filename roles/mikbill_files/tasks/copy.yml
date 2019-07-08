@@ -1,0 +1,9 @@
+---
+- name: "copy mikbill files"
+  copy:
+    src: "{{ item }}"
+    dest: "{{ mikbill.dirs.tmp }}/{{ item }}"
+  with_items:
+    - admin.tar.gz
+    - stat.tar.gz
+    - blocked.tar.gz

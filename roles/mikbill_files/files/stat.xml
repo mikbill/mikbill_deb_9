@@ -1,0 +1,19 @@
+<config>
+    <parameters>
+        <mysql>
+            <host>localhost</host>
+            <username>{username}</username>
+            <password>{password}</password>
+            <dbname>{database}</dbname>
+        </mysql>
+		<partialUTF8>false</partialUTF8>
+		<timezone>{timezone}</timezone>
+        <mbdebug>false</mbdebug>
+        <siteName>MikBill Stat</siteName>
+        <siteHost>https://</siteHost>
+        <doauthbyip>0</doauthbyip>
+        <doauthbyframedip>0</doauthbyframedip>
+        <doauthbyonlineip>0</doauthbyonlineip>
+        <doauthonlypass>0</doauthonlypass>
+    </parameters>
+</config>

@@ -1,0 +1,39 @@
+---
+- name: "create scripts dir"
+  file:
+    path: "{{ OS.mikbill.dirs.scripts }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: "copy sbin scritps"
+  copy:
+    src: "{{ item.file }}"
+    dest: "{{ OS.mikbill.dirs.scripts }}/{{ item.file }}"
+    owner: root
+    group: root
+    mode: 0777
+  loop:
+    - { file: "cron_mikbill.sh" }
+    - { file: "mikbill_run.sh" }
+    - { file: "mrtg_config.sh" }
+
+- name: "create custom scripts dir"
+  file:
+    path: "{{ mikbill.dirs.home }}/custom_scripts"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: "copy sbin scritps"
+  template:
+    src: "{{ item.file }}"
+    dest: "{{ mikbill.dirs.home }}/custom_scripts/{{ item.file }}"
+    owner: root
+    group: root
+    mode: 0777
+  loop:
+    - { file: "mysql_backup.sh" }
+    - { file: "radiusd_check.sh" }
