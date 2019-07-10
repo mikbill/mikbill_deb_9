@@ -1,0 +1,19 @@
+---
+- name: "generate password for root"
+  set_fact:
+     root_passwd: "{{ lookup('password', '/tmp/db_root chars=ascii_letters') }}"
+  when: mikbill.database.users.root.password == ''
+
+- name: "copy root password from variable"
+  set_fact:
+     root_passwd: "{{ mikbill.database.users.root.password }}"
+  when: mikbill.database.users.root.password != ''
+
+- include_tasks: "install_{{ mikbill.database.type.name }}_{{ ansible_os_family | lower }}{{ ansible_distribution_major_version }}.yml"
+- include_tasks: copy_clear_dump.yml
+- include_tasks: create_db.yml
+- include_tasks: delete_users.yml
+- include_tasks: create_user.yml
+- include_tasks: import_db.yml
+- include_tasks: apply_query.yml
+- include_tasks: systemd.yml

@@ -1,0 +1,12 @@
+---
+- name: "create radius dirs"
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ OS.radius.dirs.conf }}"
+    - "{{ OS.radius.dirs.logs }}"
+    - "{{ OS.radius.dirs.perl }}"

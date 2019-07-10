@@ -1,0 +1,12 @@
+---
+- name: "which php"
+  command: which php
+  register: php
+
+- name: "generate config"
+  command: "{{ php.stdout }} index.php config_mrtg_gen"
+  args:
+    chdir: "{{ OS.mikbill.dirs.www }}/admin/"
+  register: config_mrtg_gen
+  failed_when: config_mrtg_gen.rc not in [0,255]
+  ignore_errors: yes

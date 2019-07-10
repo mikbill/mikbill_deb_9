@@ -1,0 +1,16 @@
+---
+- name: "replace radiusd.conf params"
+  replace:
+    path: "{{ OS.radius.dirs.conf }}/radiusd.conf"
+    regexp: "{radius_daemon}"
+    replace: "{{ OS.radius.name }}"
+
+- name: "replace sql.conf params"
+  replace:
+    path: "{{ OS.radius.dirs.conf }}/sql.conf"
+    regexp: "{{ item.param }}"
+    replace: "{{ item.value }}"
+  loop:
+    - { param: "{db_name}",         value: "{{ mikbill.database.proper.name }}" }
+    - { param: "{login}",           value: "{{ mikbill.database.users.billing.user }}" }
+    - { param: "{password}",        value: "{{ hostvars[inventory_hostname].billing_pass }}" }

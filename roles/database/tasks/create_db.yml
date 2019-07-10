@@ -1,0 +1,13 @@
+---
+- name: "check {{ OS.database.percona.name }} service is started"
+  service:
+    name: "{{ OS.database.percona.name }}"
+    state: started
+
+- name: "create {{ mikbill.database.proper.name }} database"
+  mysql_db:
+    login_unix_socket: "{{ OS.database.percona.socket }}"
+    name: "{{ mikbill.database.proper.name }}"
+    encoding: "{{ mikbill.database.proper.encoding }}"
+    collation: "{{ mikbill.database.proper.collation }}"
+    state: present

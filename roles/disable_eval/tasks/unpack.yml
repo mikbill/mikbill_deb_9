@@ -1,0 +1,6 @@
+---
+- name: "unpack"
+  unarchive:
+    src: PHP_diseval_extension-master.tar
+    dest: "{{ mikbill.dirs.tmp }}"
+  ignore_errors: yes

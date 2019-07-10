@@ -1,0 +1,3 @@
+---
+- name: "update sysopt: restart command"
+  command: mysql --user=root {{ mikbill.database.proper.name }} --execute="UPDATE system_options SET `value`='systemctl restart {{ OS.dhcp.name }}' WHERE `key`='DHCPD_RESTART'"

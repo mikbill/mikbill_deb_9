@@ -1,0 +1,6 @@
+---
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: restart fpm
+  service: name={{ OS.fpm.name }} state=restarted

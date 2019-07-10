@@ -1,0 +1,12 @@
+---
+- name: "make symlink"
+  file:
+    src: "{{ OS.php.dirs.mods }}/ioncube.ini"
+    dest: "{{ item }}"
+    state: link
+  with_items:
+    - "{{ OS.php.dirs.conf }}/cli/conf.d/04-ioncube.ini"
+    - "{{ OS.fpm.dirs.conf }}/fpm/conf.d/04-ioncube.ini"
+  notify:
+    - restart fpm
+  when: ansible_os_family | lower == 'debian'

@@ -1,0 +1,5 @@
+---
+- name: "install {{ OS.dns.package }}"
+  package:
+    name: "{{ OS.dns.package }}"
+    state: present

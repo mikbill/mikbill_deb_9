@@ -1,0 +1,7 @@
+---
+- name: "copy cron file"
+  template:
+    src: mikbill
+    dest: "{{ OS.cron.dirs.custom }}/mikbill"
+  notify:
+    - restart cron

@@ -1,0 +1,17 @@
+---
+- name: "save to file {{ mikbill.dirs.home }}/mikbill.info"
+  copy:
+    dest: "{{ mikbill.dirs.home }}/mikbill.info"
+    content: |
+      admin url: https://admin.{{ mikbill.nginx.domain }}
+                 https://{{ ansible_default_ipv4.address }}
+      login: admin
+      password: {{ hostvars[inventory_hostname].www_pass }}
+      
+      stat url: http://stat.{{ mikbill.nginx.domain }}
+      login: test
+      password: test
+      
+      database:
+      root / {{ hostvars[inventory_hostname].root_passwd }}
+      mikbill / {{ hostvars[inventory_hostname].billing_pass }}

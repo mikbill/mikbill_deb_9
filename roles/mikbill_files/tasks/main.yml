@@ -1,0 +1,8 @@
+---
+- include_tasks: copy.yml
+- include_tasks: unpack.yml
+- include_tasks: chmod.yml
+- include_tasks: xml.yml
+- include_tasks: scripts.yml
+- include_tasks: systemd.yml
+- include_tasks: mbp_config.yml

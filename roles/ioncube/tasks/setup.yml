@@ -1,0 +1,5 @@
+---
+- name: "create ioncube.ini"
+  template:
+    src: ioncube.ini
+    dest: "{{ OS.php.dirs.mods }}/ioncube.ini"

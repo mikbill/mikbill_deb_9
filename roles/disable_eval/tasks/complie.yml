@@ -1,0 +1,18 @@
+---
+- name: "run phpize"
+  shell: phpize
+  args:
+    chdir: "{{ mikbill.dirs.tmp }}/PHP_diseval_extension-master/source"
+  ignore_errors: yes
+
+- name: "Configuring module"
+  command: "./configure"
+  args:
+    chdir: "{{ mikbill.dirs.tmp }}/PHP_diseval_extension-master/source"
+  ignore_errors: yes
+
+- name: "Installing module"
+  shell: make && make install
+  args:
+    chdir: "{{ mikbill.dirs.tmp }}/PHP_diseval_extension-master/source"
+  ignore_errors: yes

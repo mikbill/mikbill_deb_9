@@ -1,0 +1,125 @@
+OS:
+  database:
+    percona:
+      name: mysql
+      version: 56
+      alias: mysql.service
+      systemd: /etc/systemd/system/mysql.service
+      socket: /var/lib/mysql/mysql.sock
+      dirs:
+        conf: /etc
+        logs: /var/log/mysql
+        data: /var/lib/mysql
+        run: /var/run/mysqld
+
+  radius:
+    name: radiusd
+    version: 3
+    alias: radiusd.service
+    systemd: /etc/systemd/system/multi-user.target.wants/radiusd.service
+    dirs:
+      conf: /etc/raddb
+      logs: /var/log/radius
+      perl: /usr/lib64/perl5
+    files:
+      conf: radiusd.conf
+      sql: sql.conf
+
+  php:
+    dirs:
+      conf: /etc
+      mods: /etc/php.d
+    files:
+      ini: php.ini
+      cli: php.ini
+
+  fpm:
+    name: php-fpm
+    files:
+      ini: php.ini
+      conf: php-fpm.conf
+      pool: www.conf
+      socket: /var/run/php-fpm.sock
+    dirs:
+      conf: /etc
+      pool: /etc/php-fpm.d
+    config:
+      fpm:
+        demonized: "yes"
+      pool:
+        name: www
+        user: apache
+        group: apache
+        listen:
+          user: nginx
+          group: nginx
+
+  mikbill:
+    name: mikbill
+    alias: mikbill.service
+    systemd: /etc/systemd/system/mikbill.service
+    dirs:
+      logs: /var/log/mikbill.log
+      scripts: /usr/local/sbin
+      www: /var/www/mikbill
+      upd: admin/sys/update/
+    files:
+      mikbill_update: mikbill_update.sh
+      mb_sql_upd: mb_sql_upd.sh
+      xml:
+        admin: admin/app/etc/config.xml
+        stat: stat/app/etc/config.xml
+
+  nginx:
+    name: nginx
+    owner: nginx
+    dirs:
+      conf: /etc/nginx
+      ssl: /etc/nginx/conf.d/ssl
+      logs: /var/log/nginx
+    files:
+      ssl_key: ca.key
+      ssl_cert: ca.crt
+      config: nginx.conf
+      fastcgi: fastcgi
+
+  dhcp:
+    package: dhcp
+    name: dhcpd
+    files:
+      conf: dhcpd.conf
+    dirs:
+      conf: /etc/dhcp
+
+  dns:
+    package: unbound
+    name: unbound
+    files:
+      conf: unbound.conf
+    dirs:
+      conf: /etc/unbound
+
+  ioncube:
+    dirs:
+      data: /usr/local/ioncube
+    files:
+      so: ioncube_loader_lin_7.2.so
+      ts: ioncube_loader_lin_7.2_ts.so
+
+  mrtg:
+    package: mrtg
+    dirs:
+      conf: /etc/mrtg
+    files:
+      users: mrtg_mikbill_users.conf
+      tarif: mrtg_mikbill_tarif.conf
+
+  cron:
+    name: crond
+    dirs:
+      custom: /etc/cron.d
+
+  hosts: /etc/hosts
+  sysctl: /etc/sysctl.conf
+  sudo: /etc/sudoers.d
+  logrotate: /etc/logrotate.d/

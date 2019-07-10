@@ -1,0 +1,16 @@
+---
+- name: OS Info
+  debug:
+    msg: "OS: {{ ansible_os_family }}, version: {{ ansible_distribution_major_version }}"
+
+- name: "check RAM"
+  assert:
+    that: "ansible_memtotal_mb >= {{ mikbill.requirements.ram }}"
+    fail_msg: "RAM size: {{ ansible_memtotal_mb }}, is lower than {{ mikbill.requirements.ram }}"
+    success_msg: "RAM size: {{ ansible_memtotal_mb }}"
+
+- name: "check CPU"
+  assert:
+    that: "ansible_processor_vcpus >= {{ mikbill.requirements.cores }}"
+    fail_msg: "cores count: {{ ansible_processor_vcpus }}, is lower than {{ mikbill.requirements.cores }}"
+    success_msg: "CPU cores: {{ ansible_processor_vcpus }}"

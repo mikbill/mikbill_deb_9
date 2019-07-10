@@ -1,0 +1,24 @@
+---
+- name: "check {{ OS.php.dirs.mods }}/xcache.ini"
+  stat:
+    path: "{{ OS.php.dirs.mods }}/xcache.ini"
+  register: xcache
+
+- name: "disable xcache"
+  replace:
+    path: "{{ OS.php.dirs.mods }}/xcache.ini"
+    regexp: "^extension = xcache.so"
+    replace: ";extension = xcache.so"
+  when: xcache.stat.exists == True
+
+- name: "check {{ OS.php.dirs.mods }}/opcache.ini"
+  stat:
+    path: "{{ OS.php.dirs.mods }}/opcache.ini"
+  register: opcache
+
+- name: "disable opcache"
+  replace:
+    path: "{{ OS.php.dirs.mods }}/opcache.ini"
+    regexp: "^zend_extension=opcache.so"
+    replace: ";zend_extension=opcache.so"
+  when: opcache.stat.exists == True

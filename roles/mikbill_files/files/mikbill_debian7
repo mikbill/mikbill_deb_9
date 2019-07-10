@@ -1,0 +1,52 @@
+#!/bin/sh
+# Start/stop the MikBill daemon.
+
+### BEGIN INIT INFO
+# Provides:          MikBill
+# Required-Start:    $remote_fs $network $syslog
+# Should-Start:      $time mysql slapd postgresql samba krb5-kdc
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: MikBill Daemon 
+# Description:       Extensible, configurable radius daemon
+### END INIT INFO
+
+set -e
+
+. /lib/lsb/init-functions
+
+PROG="mikbill"
+DESCR="MikBill daemon"
+
+test -f $PROGRAM || exit 0
+
+
+export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
+
+ret=0
+
+case "$1" in
+        start)
+        rm -rf /var/run/mikbill.pid
+        touch /var/run/mikbill.pid
+                log_daemon_msg "Starting $DESCR" "$PROG"
+                start-stop-daemon --start --quiet --exec /usr/local/sbin/mikbill_run.sh & 2>/dev/null
+                exit 
+                ;;
+        stop)
+        rm -rf /var/run/mikbill.pid
+                log_daemon_msg "Stopping $DESCR" "$PROG"
+	kill -9 `ps auxfw|grep mikbill_run.sh|grep usr|awk {'print $2'}`  2>/dev/null
+	kill -9 `ps auxfw|grep mikbill.php|grep /usr/bin|awk {'print $2'}` 2>/dev/null
+                ;;
+        restart|force-reload)
+        kill -9 `ps auxfw|grep mikbill.php|grep /usr/bin|awk {'print $2'}` 2>/dev/null
+                ;;
+        *)
+                echo "Usage: $0 start|stop|restart|force-reload"
+                exit 1 
+                ;;
+esac
+
+exit 0

@@ -1,0 +1,5 @@
+---
+- name: "add logrotate task"
+  template:
+    src: mikbill
+    dest: "{{ OS.logrotate }}/mikbill" 

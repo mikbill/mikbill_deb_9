@@ -1,0 +1,20 @@
+---
+- name: add to startup
+  service:
+    name: "{{ OS.radius.alias }}"
+    enabled: yes
+
+- name: "add start after mikbill.service"
+  replace:
+    path: "{{ OS.radius.systemd }}"
+    regexp: "After=syslog.target network.target ipa.service dirsrv.target krb5kdc.service"
+    replace: "After=syslog.target network.target ipa.service dirsrv.target krb5kdc.service {{ OS.mikbill.alias }}"
+
+- name: "add ExecStop param"
+  lineinfile:
+    path: "{{ OS.radius.systemd }}"
+    line: "ExecStop=/bin/kill -9 $MAINPID"
+    insertafter: '^ExecReload=/bin/kill'
+
+- name: "reload systemd"
+  command: systemctl daemon-reload

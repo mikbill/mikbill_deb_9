@@ -1,0 +1,23 @@
+{{ OS.mikbill.dirs.logs }} {
+	weekly
+	rotate 12
+	size 1M
+	compress
+	delaycompress
+}
+
+{{ OS.mikbill.dirs.www }}/admin/app/log/*.log {
+	weekly
+	rotate 24
+	size 1M
+	compress
+	delaycompress
+}
+
+{{ OS.mikbill.dirs.www }}/stat/app/log/*.log {
+	weekly
+	rotate 24
+	size 1M
+	compress
+	delaycompress
+}

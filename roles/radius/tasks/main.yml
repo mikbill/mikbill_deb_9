@@ -1,0 +1,11 @@
+---
+- include_tasks: "install_{{ ansible_os_family | lower }}{{ ansible_distribution_major_version }}.yml"
+- include_tasks: clear.yml
+- include_tasks: dirs.yml
+- include_tasks: files.yml
+- include_tasks: serialize.yml
+- include_tasks: attributes.yml
+- include_tasks: replace_values.yml
+- include_tasks: apply_query.yml
+- include_tasks: systemd.yml
+  when: ansible_os_family | lower == "redhat"

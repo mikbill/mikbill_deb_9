@@ -1,0 +1,16 @@
+---
+- name: "make systemd service"
+  template:
+    src: "mikbill.service"
+    dest: "{{ OS.mikbill.systemd }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: "reload systemd"
+  command: systemctl daemon-reload
+
+- name: add to startup
+  service:
+    name: "{{ OS.mikbill.alias }}"
+    enabled: yes

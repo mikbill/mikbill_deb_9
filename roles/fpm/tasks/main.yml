@@ -1,0 +1,5 @@
+---
+- name: "generate pool configuration"
+  template:
+    src: fpm-pool.conf
+    dest: "{{ OS.fpm.dirs.pool }}/{{ OS.fpm.files.pool }}"

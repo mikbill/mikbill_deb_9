@@ -1,0 +1,5 @@
+---
+- name: "add webserver to sudoers"
+  template:
+    src: mikbill
+    dest: "{{ OS.sudo }}/mikbill"  

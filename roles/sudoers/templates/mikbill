@@ -1,0 +1,1 @@
+{{ OS.fpm.config.pool.user }}	ALL=(ALL:ALL)	NOPASSWD:ALL

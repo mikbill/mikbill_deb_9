@@ -1,0 +1,26 @@
+---
+- name: "delete default anonymous users"
+  mysql_user:
+    login_unix_socket: "{{ OS.database.percona.socket }}"
+    name: ""
+    host: "{{ item }}"
+    state: absent
+  with_items:
+    - localhost
+    - "{{ ansible_fqdn }}"
+    - "%"
+
+- name: "delete root ipv6 user"
+  mysql_user:
+    login_unix_socket: "{{ OS.database.percona.socket }}"
+    name: "root"
+    host: "::1"
+    state: absent
+    
+- name: "delete root fqdn user"
+  mysql_user:
+    login_unix_socket: "{{ OS.database.percona.socket }}"
+    name: "root"
+    host: "{{ ansible_fqdn }}"
+    state: absent
+  when: ansible_fqdn != 'localhost'

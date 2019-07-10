@@ -1,0 +1,10 @@
+---
+- name: "copy {{ OS.radius.version }}x files"
+  copy:
+    src: "{{ OS.radius.version }}x.tar.gz"
+    dest: "{{ mikbill.dirs.tmp }}/raddb.tar.gz"
+
+- name: "unpack files"
+  unarchive:
+    src: "{{ mikbill.dirs.tmp }}/raddb.tar.gz"
+    dest: "{{ OS.radius.dirs.conf }}"

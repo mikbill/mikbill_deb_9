@@ -1,0 +1,19 @@
+[Unit]
+Description=MikBiLL kernel
+After=syslog.target network.target {{ OS.database.percona.alias }}
+
+[Service]
+User=root
+Type=forking
+TimeoutSec=0
+PIDFile=/var/run/mikbill.pid
+ExecStart=/bin/sh {{ OS.mikbill.dirs.scripts }}/mikbill_run.sh
+ExecStop=/bin/kill -9 $MAINPID
+#ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

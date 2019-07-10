@@ -1,0 +1,5 @@
+---
+- name: "setup serialize.pm"
+  copy:
+    src: "{{ OS.radius.dirs.conf }}/serialize.pm"
+    dest: "{{ OS.radius.dirs.perl }}/serialize.pm"

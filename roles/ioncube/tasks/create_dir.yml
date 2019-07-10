@@ -1,0 +1,3 @@
+---
+- name: "create ioncube dir"
+  file: path="{{ OS.ioncube.dirs.data }}" state=directory

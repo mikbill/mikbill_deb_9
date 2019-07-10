@@ -1,0 +1,50 @@
+---
+- name: MikBiLL Install PlayBook
+  hosts: local
+  pre_tasks:
+    - name: "read mikbill config"
+      include_vars: config/mikbill.yaml
+
+    - name: "read OS config"
+      include_vars: "config/{{ ansible_os_family | lower }}/{{ ansible_distribution_major_version }}/config.yaml"
+
+    - name: "read timezone"
+      shell: timedatectl status | grep 'Time.zone' | awk '{print $3}'
+      register: timezone
+
+    - name: "setup default timezone"
+      set_fact:
+        timezone:
+          stdout: "Europe/Kiev"
+      when: '"/" not in timezone.stdout'
+      
+    - name: "create {{ mikbill.dirs.tmp }}"
+      file:
+        path: "{{ mikbill.dirs.tmp }}"
+        owner: root
+        group: root
+        mode: 0755
+        state: directory
+  roles:
+   - requirements
+   - packages
+   - dns
+   - php
+   - phing
+   - fpm
+   - disable_eval
+   - ioncube
+   - nginx
+   - hosts
+   - database
+   - mikbill_files
+   - radius
+   - dhcp
+   - sudoers
+   - update
+   - cron
+   - mrtg
+   - settings
+   - logrotate
+   - final
+

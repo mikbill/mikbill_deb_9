@@ -1,0 +1,34 @@
+---
+- name: "copy xml configs"
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ OS.mikbill.dirs.www }}/{{ item.dst }}"
+  loop:
+    - { src: "admin.xml", dst: "{{ OS.mikbill.files.xml.admin }}" }
+    - { src: "stat.xml", dst: "{{ OS.mikbill.files.xml.stat }}" }
+
+- name: "replace xml values"
+  replace:
+    path: "{{ OS.mikbill.dirs.www }}/{{ item.file }}"
+    regexp: "{{ item.before }}"
+    replace: "{{ item.after }}"
+  loop:
+    - { file: "{{ OS.mikbill.files.xml.admin }}", before: "{username}", after: "{{ mikbill.database.users.billing.user }}" }
+    - { file: "{{ OS.mikbill.files.xml.admin }}", before: "{password}", after: "{{ hostvars[inventory_hostname].billing_pass }}" }
+    - { file: "{{ OS.mikbill.files.xml.admin }}", before: "{database}", after: "{{ mikbill.database.proper.name }}" }
+    - { file: "{{ OS.mikbill.files.xml.stat }}", before: "{username}", after: "{{ mikbill.database.users.billing.user }}" }
+    - { file: "{{ OS.mikbill.files.xml.stat }}", before: "{password}", after: "{{ hostvars[inventory_hostname].billing_pass }}" }
+    - { file: "{{ OS.mikbill.files.xml.stat }}", before: "{database}", after: "{{ mikbill.database.proper.name }}" }
+
+
+- name: "replace admin timezone"
+  replace:
+    path: "{{ OS.mikbill.dirs.www }}/{{ OS.mikbill.files.xml.admin }}"
+    regexp: "{timezone}"
+    replace: "{{ timezone.stdout }}"
+  
+- name: "replace stat timezone"
+  replace:
+    path: "{{ OS.mikbill.dirs.www }}/{{ OS.mikbill.files.xml.stat }}"
+    regexp: "{timezone}"
+    replace: "{{ timezone.stdout }}"

@@ -1,0 +1,25 @@
+---
+- name: make nginx.conf
+  template:
+    src: nginx.conf
+    dest: "{{ OS.nginx.dirs.conf }}/nginx.conf"
+
+- name: make fastcgi_params
+  template:
+    src: fastcgi
+    dest: "{{ OS.nginx.dirs.conf }}/fastcgi_params"
+
+- name: create admin host
+  template:
+    src: admin.conf
+    dest: "{{ OS.nginx.dirs.conf }}/conf.d/admin.conf"
+
+- name: create stat host
+  template:
+    src: stat.conf
+    dest: "{{ OS.nginx.dirs.conf }}/conf.d/stat.conf"
+
+- name: create blocked host
+  template:
+    src: blocked.conf
+    dest: "{{ OS.nginx.dirs.conf }}/conf.d/blocked.conf"

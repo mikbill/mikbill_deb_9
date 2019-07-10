@@ -1,0 +1,9 @@
+---
+- name: "add records"
+  blockinfile:
+    path: "{{ OS.hosts }}"
+    block: |
+      127.0.0.1 admin.{{ mikbill.nginx.domain }}
+      127.0.0.1 stat.{{ mikbill.nginx.domain }}
+      127.0.0.1 {{ ansible_fqdn }}
+    marker: "# {mark} MIKBILL DEFAULT RECORDS"

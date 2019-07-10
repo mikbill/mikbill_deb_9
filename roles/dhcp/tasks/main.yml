@@ -1,0 +1,5 @@
+---
+- include_tasks: install.yml
+- include_tasks: access.yml
+- include_tasks: disable.yml
+- include_tasks: apply_query.yml
